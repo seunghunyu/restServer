@@ -16,6 +16,13 @@ public class IgniteLifeCycle {
 
     IgniteClient igniteClient = Ignition.startClient(cfg);
 
+    public IgniteLifeCycle(String igniteServerIP, ClientConfiguration cfg, IgniteClient igniteClient) {
+        this.igniteServerIP = igniteServerIP;
+        this.cfg = cfg;
+        this.igniteClient = igniteClient;
+    }
+
+
     //스키마 설정
     public ClientCache IgniteConnect(){
         ClientCache<Object, Object> cache = igniteClient.getOrCreateCache("YSH");
