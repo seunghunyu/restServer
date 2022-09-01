@@ -6,26 +6,20 @@ import org.apache.ignite.Ignition;
 import org.apache.ignite.client.ClientCache;
 import org.apache.ignite.client.IgniteClient;
 import org.apache.ignite.configuration.ClientConfiguration;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 public class SampleController {
-    String igniteServerIP = "192.168.20.64:10800";
-    ClientConfiguration cfg = new ClientConfiguration()
-            .setAddresses(igniteServerIP);
+    ClientCache<Object, Object> cache = null;
+    IgniteLifeCycle igniteLifeCycle = null;
 
-    IgniteClient igniteClient = Ignition.startClient(cfg);
-    IgniteLifeCycle igniteLifeCycle = new IgniteLifeCycle(igniteServerIP,cfg, igniteClient);
-
-    ClientCache<Object, Object> cache = igniteLifeCycle.IgniteConnect();
-
-
-
+    @GetMapping("/igniteCacheCreate")
+    public void igniteCacheCreate(){
+        igniteLifeCycle = new IgniteLifeCycle();
+        cache = igniteLifeCycle.IgniteConnect();
+    }
 
     @RequestMapping(value = "/restTest", method = RequestMethod.POST)
     public String restTest(@RequestBody Map<String,String> param){

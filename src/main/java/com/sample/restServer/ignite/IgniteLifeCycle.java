@@ -10,16 +10,14 @@ import java.util.List;
 
 public class IgniteLifeCycle {
     //접속정보
+
     String igniteServerIP = "192.168.20.64:10800";
     ClientConfiguration cfg = new ClientConfiguration()
             .setAddresses(igniteServerIP);
-
     IgniteClient igniteClient = Ignition.startClient(cfg);
 
-    public IgniteLifeCycle(String igniteServerIP, ClientConfiguration cfg, IgniteClient igniteClient) {
-        this.igniteServerIP = igniteServerIP;
-        this.cfg = cfg;
-        this.igniteClient = igniteClient;
+    public IgniteLifeCycle() {
+
     }
 
 
