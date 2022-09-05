@@ -1,5 +1,5 @@
 spring:
   redis:
     #docker 위 컨테이너 IP
-    host: 172.17.0.2
+    host: 192.168.20.69
     port: 6379

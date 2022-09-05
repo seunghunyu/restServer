@@ -3,10 +3,10 @@ package com.sample.restServer.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @RestController
 public class RedisController {
@@ -40,5 +40,24 @@ public class RedisController {
         jobGrade = stringStringValueOperations.get(keyName); // redis get 명령어
         System.out.println("keyName : "+ keyName + " / value :  " + jobGrade);
 
+        keyName = "hyuna";
+        stringStringValueOperations.set(keyName, "release_master"); // redis set 명령어
+        jobGrade = stringStringValueOperations.get(keyName); // redis get 명령어
+        System.out.println("keyName : "+ keyName + " / value :  " + jobGrade);
+
+    }
+
+    //Redis로 데이터 Post로 던져서 값 세팅
+    @RequestMapping(value = "/RedisPost", method = RequestMethod.POST)
+    public String RedisPost(@RequestBody Map<String,String> param){
+        String getParam = param.get("name");
+        System.out.println("넘어온 파라미터 : " + param);
+        System.out.println("넘어온 파라미터 : " + getParam);
+
+        String keyName = "name";
+        ValueOperations<String, String> stringStringValueOperations = redisTemplate.opsForValue();
+        stringStringValueOperations.set(keyName, getParam);
+
+        return "RedisPost";
     }
 }
